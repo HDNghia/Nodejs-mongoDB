@@ -24,6 +24,8 @@ async function myDbConnection() {
     }
 }
 
+var port = process.env.PORT || 8000
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 app.get("/api", (req, res) => {
@@ -39,6 +41,6 @@ app.use("/v1/author", autherRoute);
 
 app.use("/v1/book", bookRoute);
 
-app.listen(process.env.port, () => {
+app.listen(port, () => {
     console.log("Server is running...");
 })
