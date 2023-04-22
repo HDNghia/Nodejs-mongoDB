@@ -39,6 +39,6 @@ app.use("/v1/author", autherRoute);
 
 app.use("/v1/book", bookRoute);
 
-app.listen(8000, () => {
+app.listen(process.env.port, () => {
     console.log("Server is running...");
 })
