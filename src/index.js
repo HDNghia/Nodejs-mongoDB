@@ -9,6 +9,7 @@ const autherRoute = require("./routes/author");
 const bookRoute = require("./routes/book");
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./swagger");
 
 dotenv.config()
 //CONNECT Database
@@ -24,80 +25,80 @@ async function myDbConnection() {
     }
 }
 
-const options = {
-    definition: {
-        openapi: '3.0.0',
-        info: {
-            title: "Nodejs api project for mongoDB",
-            version: '1.0.0'
-        },
+// const options = {
+//     definition: {
+//         openapi: '3.0.0',
+//         info: {
+//             title: "Nodejs api project for mongoDB",
+//             version: '1.0.0'
+//         },
 
-        servers: [
-            {
-                url: 'http://localhost:8000'
-            }
-        ],
-        tags: [
-            {
-                name: "Todo CRUD operations", // name of a tag
-                description: "Operations for managing Todos" // description of the tag
-            }
-        ],
-        paths: {
-            "/v1/author": {
-                get: {
-                    tags: ["Todo CRUD operations"], // operation's tag.
-                    description: "Get todos", // operation's desc.
-                    operationId: "getTodos", // unique operation id.
-                    parameters: [], // expected params.
-                    // expected responses
-                    responses: {
-                        // response code
-                        200: {
-                            description: "Todos were obtained", // response desc.
-                            content: {
-                                // content-type
-                                "application/json": {
-                                    schema: {
-                                        $ref: "#/components/schemas/Todo", // Todo model
-                                    },
-                                },
-                            },
-                        },
-                    },
-                },
-            },
-        },
-        components: {
-            schemas: {
-                Todo: {
-                    type: "object", // data type
-                    properties: {
-                        id: {
-                            type: "string", // data-type
-                            description: "Todo identification number", // desc
-                            example: "ytyVgh", // example of an id
-                        },
-                        title: {
-                            type: "string", // data-type
-                            description: "Todo's title", // desc
-                            example: "Coding in JavaScript", // example of a title
-                        },
-                        completed: {
-                            type: "boolean", // data type
-                            description: "The status of the todo", // desc
-                            example: false, // example of a completed value
-                        },
-                    },
-                },
-            },
-        },
+//         servers: [
+//             {
+//                 url: 'http://localhost:8000'
+//             }
+//         ],
+//         tags: [
+//             {
+//                 name: "Todo CRUD operations", // name of a tag
+//                 description: "Operations for managing Todos" // description of the tag
+//             }
+//         ],
+//         paths: {
+//             "/v1/author": {
+//                 get: {
+//                     tags: ["Todo CRUD operations"], // operation's tag.
+//                     description: "Get todos", // operation's desc.
+//                     operationId: "getTodos", // unique operation id.
+//                     parameters: [], // expected params.
+//                     // expected responses
+//                     responses: {
+//                         // response code
+//                         200: {
+//                             description: "Todos were obtained", // response desc.
+//                             content: {
+//                                 // content-type
+//                                 "application/json": {
+//                                     schema: {
+//                                         $ref: "#/components/schemas/Todo", // Todo model
+//                                     },
+//                                 },
+//                             },
+//                         },
+//                     },
+//                 },
+//             },
+//         },
+//         components: {
+//             schemas: {
+//                 Todo: {
+//                     type: "object", // data type
+//                     properties: {
+//                         id: {
+//                             type: "string", // data-type
+//                             description: "Todo identification number", // desc
+//                             example: "ytyVgh", // example of an id
+//                         },
+//                         title: {
+//                             type: "string", // data-type
+//                             description: "Todo's title", // desc
+//                             example: "Coding in JavaScript", // example of a title
+//                         },
+//                         completed: {
+//                             type: "boolean", // data type
+//                             description: "The status of the todo", // desc
+//                             example: false, // example of a completed value
+//                         },
+//                     },
+//                 },
+//             },
+//         },
 
-    },
-    apis: ['./index.js']
-}
+//     },
+//     apis: ['./index.js']
+// }
 
-const swaggerSpec = swaggerJSDoc(options)
+// const swaggerSpec = swaggerJSDoc(options)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 app.get("/api", (req, res) => {

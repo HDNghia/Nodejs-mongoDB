@@ -15,11 +15,23 @@ const authorController = {
 
     //GET ALL AUTHORS
     getAllAuthors: async (req, res) => {
-        try {
-            const authors = await Author.find();
-            res.status(200).json(authors);
-        } catch (err) {
-            res.status(500).json(err);
+        let Name = req.query.name;
+        console.log(Name);
+        if (Name != null) {
+            try {
+                const authors = await Author.find({ "name": { '$regex': `${Name}` } });
+                res.status(200).json(authors);
+            } catch (err) {
+                res.status(500).json(err);
+            }
+        }
+        else {
+            try {
+                const authors = await Author.find();
+                res.status(200).json(authors);
+            } catch (err) {
+                res.status(500).json(err);
+            }
         }
     },
 
